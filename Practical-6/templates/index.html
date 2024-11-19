@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Chain Multiplication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if request.endpoint == 'index' %}
+        <h1>Matrix Chain Multiplication</h1>
+        <p>Find the minimum number of scalar multiplications for the given matrix chain.</p>
+        <form method="post">
+            <label for="dimensions">Enter matrix dimensions (comma-separated):</label>
+            <input type="text" id="dimensions" name="dimensions" placeholder="5,10,3,12,5,50,6" required>
+            <button type="submit">Calculate Minimum Multiplications</button>
+        </form>
+
+        {% if result is not none %}
+            <h2>Minimum Number of Multiplications: {{ result }}</h2>
+            <h3>Optimal Parenthesization: {{ parens }}</h3>
+        {% endif %}
+
+        <a href="{{ url_for('analysis') }}">View Analysis</a>
+
+        {% elif request.endpoint == 'analysis' %}
+        <h1>Matrix Chain Multiplication Analysis</h1>
+        <table>
+            <tr>
+                <th>Matrix Dimensions</th>
+                <th>Minimum Multiplications</th>
+                <th>Optimal Parenthesization</th>
+            </tr>
+            {% for result in analysis_results %}
+            <tr>
+                <td>{{ result.dimensions }}</td>
+                <td>{{ result.min_multiplications }}</td>
+                <td>{{ result.optimal_parenthesization }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Analysis Plot</h2>
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Matrix Chain Analysis Plot">
+        
+        <a href="{{ url_for('index') }}">Back to Home</a>
+        {% endif %}
+    </div>
+</body>
+</html>
