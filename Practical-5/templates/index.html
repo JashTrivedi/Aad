@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Calculator and Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if request.endpoint == 'index' %}
+            <h1>Minimum Coin Calculator</h1>
+            <form method="post">
+                <label for="amount">Enter the amount (e.g., 9):</label>
+                <input type="number" id="amount" name="amount" min="1" value="9" required>
+                <button type="submit">Calculate Minimum Coins</button>
+            </form>
+            {% if result is not none %}
+                {% if result != -1 %}
+                    <h2>The minimum number of coins required for Rs. {{ request.form['amount'] }} is: {{ result }}</h2>
+                {% else %}
+                    <h2>It is impossible to make Rs. {{ request.form['amount'] }} with the available coins.</h2>
+                {% endif %}
+            {% endif %}
+            <a href="{{ url_for('analysis') }}">View Comparative Analysis</a>
+        {% elif request.endpoint == 'analysis' %}
+            <h1>Comparative Analysis</h1>
+            <p>This section compares different values and shows the minimum coins needed for various use cases.</p>
+            <ul>
+                {% for case, result in results.items() %}
+                    <li>Amount Rs. {{ case }}: Minimum coins needed = {{ result }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('index') }}">Go back</a>
+        {% endif %}
+    </div>
+</body>
+</html>
