@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterChef Competition Results</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            margin-bottom: 10px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result, .output, .winner {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .error {
+            color: red;
+        }
+        .info-section {
+            margin-top: 30px;
+            font-size: 16px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>MasterChef Competition Results</h1>
+
+    <form method="POST">
+        <div class="section">
+            <h2>Chef Comparison</h2>
+            <div class="input-group">
+                <label for="chef1">Chef 1 Ratings [Presentation, Taste, Hygiene]:</label>
+                <input type="text" id="chef1" name="chef1" placeholder="Enter ratings (e.g., 27 48 70)" required>
+            </div>
+            <div class="input-group">
+                <label for="chef2">Chef 2 Ratings [Presentation, Taste, Hygiene]:</label>
+                <input type="text" id="chef2" name="chef2" placeholder="Enter ratings (e.g., 89 26 7)" required>
+            </div>
+            <button type="submit">Compare Chefs</button>
+        </div>
+    </form>
+
+    {% if points1 is not none %}
+    <div class="result">
+        Chef 1 points: {{ points1 }}<br>
+        Chef 2 points: {{ points2 }}<br>
+        <strong>Winner: {{ winner }}</strong>
+    </div>
+    {% endif %}
+
+    {% if error_message %}
+    <div class="error">{{ error_message }}</div>
+    {% endif %}
+
+    {% if chef_result %}
+    <div class="output">{{ chef_result|safe }}</div>
+    {% endif %}
+
+    {% if winner %}
+    <div class="winner">{{ winner|safe }}</div>
+    {% endif %}
+
+    {% if execution_time is not none %}
+    <div class="info-section">
+        <h2>Algorithm Complexity</h2>
+        <p><strong>Algorithm Type:</strong> Comparison-Based Rating Comparison</p>
+        <p><strong>Time Complexity:</strong> O(1)</p>
+        <p><strong>Space Complexity:</strong> O(1)</p>
+        <p><strong>Execution Time:</strong> {{ execution_time|round(6) }} seconds</p>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
