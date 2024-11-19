@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sorting Algorithm Comparison</h1>
+        <form method="post">
+            <label for="sizes">Enter input sizes (comma-separated):</label>
+            <input type="text" id="sizes" name="sizes" value="10,50,100,500,1000">
+            <button type="submit">Submit</button>
+        </form>
+        {% if img_url %}
+        <h2>Results</h2>
+        <img src="data:image/png;base64,{{ img_url }}" alt="Sorting Time Comparison">
+        <table>
+            <thead>
+                <tr>
+                    <th>Input Size</th>
+                    <th>Bubble Sort Time (s)</th>
+                    <th>Insertion Sort Time (s)</th>
+                    <th>Merge Sort Time (s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for size, bubble_time, insertion_time, merge_time in sizes|zip(bubble_times, insertion_times, merge_sort_times) %}
+                <tr>
+                    <td>{{ size }}</td>
+                    <td>{{ bubble_time }}</td>
+                    <td>{{ insertion_time }}</td>
+                    <td>{{ merge_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>
