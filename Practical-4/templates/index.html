@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Search System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text and inline elements */
+            background-color: #f4f4f4; /* Background color for the page */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #0044cc; /* Heading color */
+            margin: 20px 0; /* Margin for the heading */
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: inline-block; /* Center form by making it inline-block */
+            text-align: left; /* Align form elements to the left */
+        }
+
+        table {
+            width: 80%; /* Adjust width for better centering */
+            margin: 20px auto; /* Center table and add margin */
+            border-collapse: collapse;
+            text-align: left; /* Align table text to the left */
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Search System</h1>
+    <form method="post">
+        <label for="num_employees">Number of Employees:</label>
+        <input type="number" id="num_employees" name="num_employees" required>
+        <br>
+        <label for="search_key">Search Key:</label>
+        <input type="text" id="search_key" name="search_key" required>
+        <br>
+        <label for="search_attribute">Search Attribute:</label>
+        <select id="search_attribute" name="search_attribute">
+            <option value="emp_id">Employee ID</option>
+            <option value="name">Name</option>
+            <option value="age">Age</option>
+            <option value="salary">Salary</option>
+            <option value="designation">Designation</option>
+            <option value="mobile">Mobile</option>
+        </select>
+        <br>
+        <input type="submit" value="Search">
+    </form>
+
+    {% if linear_search_time is not none %}
+    <h2>Results</h2>
+    <p>Linear Search Time: {{ linear_search_time }} seconds</p>
+    <p>Binary Search Time: {{ binary_search_time }} seconds</p>
+
+    {% if linear_result %}
+    <h3>Linear Search Result</h3>
+    <p>Employee ID: {{ linear_result.emp_id }}</p>
+    <p>Name: {{ linear_result.name }}</p>
+    <p>Age: {{ linear_result.age }}</p>
+    <p>Salary: {{ linear_result.salary }}</p>
+    <p>Designation: {{ linear_result.designation }}</p>
+    <p>Mobile: {{ linear_result.mobile }}</p>
+    {% else %}
+    <p>Employee not found using Linear Search.</p>
+    {% endif %}
+
+    {% if binary_result %}
+    <h3>Binary Search Result</h3>
+    <p>Employee ID: {{ binary_result.emp_id }}</p>
+    <p>Name: {{ binary_result.name }}</p>
+    <p>Age: {{ binary_result.age }}</p>
+    <p>Salary: {{ binary_result.salary }}</p>
+    <p>Designation: {{ binary_result.designation }}</p>
+    <p>Mobile: {{ binary_result.mobile }}</p>
+    {% else %}
+    <p>Employee not found using Binary Search.</p>
+    {% endif %}
+
+    <h3>Graph of Search Times</h3>
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Search Time Comparison">
+
+
+    <h3>Employee Details</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Detail</th>
+                <th>Information</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Highest Salary</td>
+                <td>Employee ID: {{ highest_salary.emp_id }}, Name: {{ highest_salary.name }}, Salary: {{ highest_salary.salary }}, Designation: {{ highest_package }}</td>
+            </tr>
+            <tr>
+                <td>Lowest Salary Employee</td>
+                <td>Employee ID: {{ lowest_salary_employee.emp_id }}, Name: {{ lowest_salary_employee.name }}, Salary: {{ lowest_salary_employee.salary }}</td>
+            </tr>
+            <tr>
+                <td>Youngest Employee</td>
+                <td>Employee ID: {{ youngest_employee.emp_id }}, Name: {{ youngest_employee.name }}, Age: {{ youngest_employee.age }}, Mobile: {{ youngest_employee.mobile }}</td>
+            </tr>
+            <tr>
+                <td>Oldest Employee</td>
+                <td>Employee ID: {{ oldest_employee.emp_id }}, Name: {{ oldest_employee.name }}, Age: {{ oldest_employee.age }}, Salary: {{ oldest_employee.salary }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>
