@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Comparison of Sum Calculation Methods</h1>
+        <form method="POST" class="input-form">
+            <label for="array">Enter a comma-separated list of numbers:</label>
+            <input type="text" id="array" name="array" required>
+            <button type="submit">Compare</button>
+        </form>
+
+        {% if plot_url %}
+            <div class="results">
+                <h2>Results:</h2>
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Comparison Chart">
+                <h3>Details:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Loop Count</th>
+                            <th>Equation Count</th>
+                            <th>Recursion Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for number, loop_count, eq_count, rec_count in zip(numbers, count_loops, count_equations, count_recursions) %}
+                        <tr>
+                            <td>{{ number }}</td>
+                            <td>{{ loop_count }}</td>
+                            <td>{{ eq_count }}</td>
+                            <td>{{ rec_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
